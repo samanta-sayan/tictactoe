@@ -24,7 +24,7 @@ int main()
 { 
     int i=0;
     char playerIcon[]={'X','O'};
-    //welcomePage();
+    welcomePage();
     while(1)
     {
         switch (i)
@@ -278,10 +278,10 @@ int gameLogic(int *move)
         for(int k=j+2;k<7;k+=2)
             for(int l=k+2;l<9;l+=2)
                 if((move[j]+move[k]+move[l]==6) || (move[j]+move[k]+move[l]==24) || (move[j]*move[k]*move[l]==28) || (move[j]*move[k]*move[l]==162))
-                    
+                    {
                         if(move[j]!=0 && move[k]!=0 && move[l]!=0)
                             return 1;
-                    
+                    }
                 else
                     if(move[j]+move[k]+move[l]==15)
                         if(move[j]==5||move[l]==5||move[k]==5)
@@ -291,10 +291,10 @@ int gameLogic(int *move)
         for(int k=j+2;k<6;k+=2)
             for(int l=k+2;l<8;l+=2)
                 if((move[j]+move[k]+move[l]==6) || (move[j]+move[k]+move[l]==24) || (move[j]*move[k]*move[l]==28) || (move[j]*move[k]*move[l]==162))
-                    
+                    {
                         if(move[j]!=0 && move[k]!=0 && move[l]!=0)
                             return 2;
-                    
+                    }
                 else
                     if(move[j]+move[k]+move[l]==15)
                         if(move[j]==5 || move[l]==5 || move[k]==5)
