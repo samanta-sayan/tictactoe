@@ -1,5 +1,4 @@
 The game is made in C language.
 
-The extension is CPP because I am using "cin" and "cout" instead of "scanf" and "printf".
 
 You can download the exe file or source code and then compile it.

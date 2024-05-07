@@ -1,9 +1,7 @@
 #include<conio.h>
 #include<windows.h>
 #include<unistd.h>
-#include<iostream>
-
-using namespace std;
+#include<stdio.h>
 
 void consoleSize();
 void welcomePage();
@@ -74,11 +72,11 @@ void welcomePage()
     system("cls");
     consoleSize();
     cursorPos(columns/2-5,rows/2);
-    cout<<"Welcome";
+    printf("Welcome");
     for(int i=0;i<3;i++)
     {
         sleep(1);
-        cout<<".";
+        printf(".");
     }
     sleep(1);
 }
@@ -89,19 +87,19 @@ int startPage()
     system("cls");
     consoleSize();
     cursorPos(columns/2-6,rows/2-7);
-    cout<<"-: Welcome :-";
+    printf("-: Welcome :-");
     cursorPos(columns/2-7,rows/2-5);
-    cout<<"|1|  | Start |";
+    printf("|1|  | Start |");
     cursorPos(columns/2-7,rows/2-3);
-    cout<<"|2|  | Player |";
+    printf("|2|  | Player |");
     cursorPos(columns/2-7,rows/2-1);
-    cout<<"|3|  | Help |";
+    printf("|3|  | Help |");
     cursorPos(columns/2-7,rows/2+1);
-    cout<<"|0|  | Exit |";
+    printf("|0|  | Exit |");
     cursorPos(columns/2-7,rows/2+3);
-    cout<<">>>";
+    printf(">>>");
     cursorPos(columns/2-3,rows/2+3);
-    cin>>option;
+    scanf("%c",&option);
     while(1)
         switch (option)
         {
@@ -115,9 +113,9 @@ int startPage()
                 return 3;
             default:
                 cursorPos(columns/2-3,rows/2+3);
-                cout<<"     ";
+                printf("     ");
                 cursorPos(columns/2-3,rows/2+3);
-                cin>>option;
+                scanf("%c",&option);
         }
 }
 
@@ -132,12 +130,12 @@ int gamePlay(char *playerIcon)
     {
         s1:
         cursorPos(2,rows-3);
-        cout<<"Player - ";
-        j?cout<<"2":cout<<"1";
+        printf("Player - ");
+        j?printf("2"):printf("1");
         cursorPos(6,rows-2);
-        cin>>option;
+        scanf("%c",&option);
         cursorPos(6,rows-2);
-        cout<<"     ";
+        printf("     ");
         if((option>=48 && option<=57) || option==72 || option==104)
             switch (option)
             {
@@ -148,25 +146,25 @@ int gamePlay(char *playerIcon)
                     if(hide==0)
                     {
                         cursorPos(columns/2-11,rows/2-2);
-                        cout<<"1______|2______|3______";
+                        printf("1______|2______|3______");
                         cursorPos(columns/2-11,rows/2+1);
-                        cout<<"4______|5______|6______";
+                        printf("4______|5______|6______");
                         cursorPos(columns/2-11,rows/2+4);
-                        cout<<"7      |8      |9";
+                        printf("7      |8      |9");
                         cursorPos(columns-33,rows-2);
-                        cout<<"|H|  | Hide Num |  |0|  | Back |";
+                        printf("|H|  | Hide Num |  |0|  | Back |");
                         hide=1;
                     }
                     else
                     {
                         cursorPos(columns/2-11,rows/2-2);
-                        cout<<"_______|_______|_______";
+                        printf("_______|_______|_______");
                         cursorPos(columns/2-11,rows/2+1);
-                        cout<<"_______|_______|_______";
+                        printf("_______|_______|_______");
                         cursorPos(columns/2-11,rows/2+4);
-                        cout<<"       |       | ";
+                        printf("       |       | ");
                         cursorPos(columns-33,rows-2);
-                        cout<<"|H|  | Show Num |  |0|  | Back |";
+                        printf("|H|  | Show Num |  |0|  | Back |");
                         hide=0;
                     }
                     break;
@@ -201,32 +199,32 @@ void gamePageUI()
     // Game Page UI
 
     cursorPos(0,0);
-    cout<<"-: Tic Tac Toe :-";
+    printf("-: Tic Tac Toe :-");
     cursorPos(2,rows-2);
-    cout<<">>>";
+    printf(">>>");
     cursorPos(columns-33,rows-2);
-    cout<<"|H|  | Show Num |  |0|  | Back |";
+    printf("|H|  | Show Num |  |0|  | Back |");
 
     // Game Fild
 
     cursorPos(columns/2-4,rows/2-4); //line 1
-    cout<<"|       |";
+    printf("|       |");
     cursorPos(columns/2-4,rows/2-3);
-    cout<<"|       |";
+    printf("|       |");
     cursorPos(columns/2-11,rows/2-2);
-    cout<<"_______|_______|_______";//23
+    printf("_______|_______|_______");//23
     cursorPos(columns/2-4,rows/2-1); // line 2
-    cout<<"|       |";
+    printf("|       |");
     cursorPos(columns/2-4,rows/2);
-    cout<<"|       |";
+    printf("|       |");
     cursorPos(columns/2-11,rows/2+1);
-    cout<<"_______|_______|_______";//24
+    printf("_______|_______|_______");//24
     cursorPos(columns/2-4,rows/2+2); // line 3
-    cout<<"|       |";
+    printf("|       |");
     cursorPos(columns/2-4,rows/2+3);
-    cout<<"|       |";
+    printf("|       |");
     cursorPos(columns/2-4,rows/2+4);
-    cout<<"|       |";
+    printf("|       |");
 }
 
 void updateUI(char option,char *playerIcon,int j)
@@ -235,39 +233,39 @@ void updateUI(char option,char *playerIcon,int j)
     {
     case '1':
         cursorPos(columns/2-8,rows/2-3);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '2':
         cursorPos(columns/2,rows/2-3);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '3':
         cursorPos(columns/2+8,rows/2-3);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '4':
         cursorPos(columns/2-8,rows/2);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '5':
         cursorPos(columns/2,rows/2);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '6':
         cursorPos(columns/2+8,rows/2);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '7':
         cursorPos(columns/2-8,rows/2+3);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '8':
         cursorPos(columns/2,rows/2+3);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     case '9':
         cursorPos(columns/2+8,rows/2+3);
-        cout<<playerIcon[j];
+        printf("%c",playerIcon[j]);
         break;
     }
 }
@@ -308,40 +306,40 @@ int result(int i)
     char option;
     consoleSize();
     cursorPos(0,0);
-    cout<<"                 ";
+    printf("                 ");
     cursorPos(columns/2-8,0);
-    cout<<"-: Tic Tac Toe :- ";
+    printf("-: Tic Tac Toe :- ");
     cursorPos(2,rows-2);
-    cout<<"     ";
+    printf("     ");
     cursorPos(columns-33,rows-2);
-    cout<<"                                 ";
+    printf("                                 ");
     cursorPos(2,rows-3);
-    cout<<"           ";
+    printf("           ");
     cursorPos(columns/6-6,rows/2-6);
-    cout<<"-: Result :-";
+    printf("-: Result :-");
     cursorPos(columns/6-6,rows/2-4);
     if(i==1)
-        cout<<"Player 1 Win";
+        printf("Player 1 Win");
     else
         if(i==2)
-            cout<<"Player 2 Win";
+            printf("Player 2 Win");
         else
         {
             cursorPos(columns/6-2,rows/2-4);
-            cout<<"Draw";
+            printf("Draw");
         }
     cursorPos(columns/6-10,rows/2-2);
-    cout<<"|1|  | Play Again |";
+    printf("|1|  | Play Again |");
     cursorPos(columns/6-10,rows/2);
-    cout<<"|2|  | Start Page |";
+    printf("|2|  | Start Page |");
     cursorPos(columns/6-10,rows/2+2);
-    cout<<"|0|  | Exit |";
+    printf("|0|  | Exit |");
     cursorPos(columns/6-10,rows/2+4);
-    cout<<">>>";
+    printf(">>>");
     while (1)
     {
         cursorPos(columns/6-6,rows/2+4);
-        cin>>option;
+        scanf("%c",&option);
         switch (option)
         {
             case '0':
@@ -352,7 +350,7 @@ int result(int i)
                 return 0;
             default:
                 cursorPos(columns/6-6,rows/2+4);
-                cout<<"     ";
+                printf("     ");
         }
     }
 }
@@ -363,21 +361,21 @@ int player(char *playerIcon)
     system("cls");
     consoleSize();
     cursorPos(columns/2-6,rows/2-6);
-    cout<<"-: Player :-";
+    printf("-: Player :-");
     cursorPos(columns/2-7,rows/2-4);
-    cout<<"# Player 1 --> "<<playerIcon[0];
+    printf("# Player 1 --> %c",playerIcon[0]);
     cursorPos(columns/2-7,rows/2-2);
-    cout<<"# Player 2 --> "<<playerIcon[1];
+    printf("# Player 2 --> %c",playerIcon[1]);
     cursorPos(columns/2-7,rows/2);
-    cout<<"|1|  | Change |";
+    printf("|1|  | Change |");
     cursorPos(columns/2-7,rows/2+2);
-    cout<<"|0|  | Back |";
+    printf("|0|  | Back |");
     cursorPos(columns/2-7,rows/2+4);
-    cout<<">>>";
+    printf(">>>");
     while(1)
     {
         cursorPos(columns/2-2,rows/2+4);
-        cin>>option;
+        scanf("%c",&option);
         switch (option)
         {
             case '0':
@@ -388,19 +386,19 @@ int player(char *playerIcon)
                 playerIcon[0]=playerIcon[1];
                 playerIcon[1]=a;
                 cursorPos(columns/2-7,rows/2-4);
-                cout<<"# Player 1 --> "<<playerIcon[0];
+                printf("# Player 1 --> %c",playerIcon[0]);
                 cursorPos(columns/2-7,rows/2-2);
-                cout<<"# Player 2 --> "<<playerIcon[1];
+                printf("# Player 2 --> %c",playerIcon[1]);
             default:
                 cursorPos(columns/2-2,rows/2+4);
-                cout<<"     ";    
+                printf("     ");    
         }
     }
 }
 
 int help()
 {
-    cout<<"NOT AVAILABLE !!\n";
+    printf("NOT AVAILABLE !!\n");
     getch();
     return 0;
 }
@@ -410,11 +408,11 @@ void goodByePage()
     system("cls");
     consoleSize();
     cursorPos(columns/2-5,rows/2);
-    cout<<"Good Bye";
+    printf("Good Bye");
     for(int i=0;i<3;i++)
     {
         sleep(1);
-        cout<<".";
+        printf(".");
     }
     sleep(1);
 }
