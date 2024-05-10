@@ -117,7 +117,7 @@ int startPage()
     cursorPos(columns/2-7,rows/2-1);
     printf("|3|  "BLU"| Help |"RST);
     cursorPos(columns/2-7,rows/2+1);
-    printf("|0|  "BLK"| Exit |"RST);
+    printf("|0|  "RED"| Exit |"RST);
     cursorPos(columns/2-7,rows/2+3);
     printf(CYN">>>"RST);
     cursorPos(columns/2-3,rows/2+3);
@@ -169,13 +169,13 @@ int gamePlay(char *playerIcon)
                     if(hide==0)
                     {
                         cursorPos(columns/2-11,rows/2-2);
-                        printf(BLK"1"WHT"______|"BLK"2"WHT"______|"BLK"3"WHT"______");
+                        printf(CYN"1"WHT"______|"CYN"2"WHT"______|"CYN"3"WHT"______");
                         cursorPos(columns/2-11,rows/2+1);
-                        printf(BLK"4"WHT"______|"BLK"5"WHT"______|"BLK"6"WHT"______");
+                        printf(CYN"4"WHT"______|"CYN"5"WHT"______|"CYN"6"WHT"______");
                         cursorPos(columns/2-11,rows/2+4);
-                        printf(BLK"7      "WHT"|"BLK"8      "WHT"|"BLK"9"RST);
+                        printf(CYN"7      "WHT"|"CYN"8      "WHT"|"CYN"9"RST);
                         cursorPos(columns-33,rows-2);
-                        printf("|H|  "BLK"| Hide Num |  "RST"|0|  "BLU"| Back |"RST);
+                        printf("|H|  "WHT"| Hide Num |  "RST"|0|  "BLU"| Back |"RST);
                         hide=1;
                     }
                     else
@@ -230,7 +230,7 @@ void gamePageUI()
     cursorPos(2,rows-2);
     printf(CYN">>>"RST);
     cursorPos(columns-33,rows-2);
-    printf("|H|  "WHT"| Show Num |"RST"  |0|  "BLK"| Back |"RST);
+    printf("|H|  "WHT"| Show Num |"RST"  |0|  "BLU"| Back |"RST);
 
     // Game Fild
 
@@ -353,7 +353,7 @@ int result(int i,char * playerIcon)
     cursorPos(columns/6-10,rows/2);
     printf("|2|  "BLU"| Start Page |"RST);
     cursorPos(columns/6-10,rows/2+2);
-    printf("|0|  "BLK"| Exit |"RST);
+    printf("|0|  "RED"| Exit |"RST);
     cursorPos(columns/6-10,rows/2+4);
     printf(CYN">>>"RST);
     while (1)
@@ -391,7 +391,7 @@ int player(char *playerIcon)
     cursorPos(columns/2-7,rows/2);
     printf(RST"|1|  "YEL"| Change |"RST);
     cursorPos(columns/2-7,rows/2+2);
-    printf("|0|  "BLK"| Back |"RST);
+    printf("|0|  "BLU"| Back |"RST);
     cursorPos(columns/2-7,rows/2+4);
     printf(CYN">>>"RST);
     while(1)
