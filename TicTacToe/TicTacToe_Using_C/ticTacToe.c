@@ -3,6 +3,16 @@
 #include<unistd.h>
 #include<stdio.h>
 
+#define BLK "\e[0;30m"
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define BLU "\e[0;34m"
+#define MAG "\e[0;35m"
+#define CYN "\e[0;36m"
+#define WHT "\e[0;37m"
+#define RST "\e[0m"
+
 void consoleSize();
 void welcomePage();
 void cursorPos(int,int);
@@ -11,7 +21,7 @@ int gamePlay(char *);
 void gamePageUI();
 void updateUI(char,char *,int);
 int gameLogic(int *);
-int result(int);
+int result(int,char *);
 int player(char *);
 int help();
 void goodByePage();
@@ -71,14 +81,26 @@ void welcomePage()
 {
     system("cls");
     consoleSize();
-    cursorPos(columns/2-5,rows/2);
-    printf("Welcome");
     for(int i=0;i<3;i++)
     {
-        sleep(1);
+        switch (i)
+        {
+        case 0:
+            printf(RED);
+            break;
+        case 1:
+            printf(YEL);
+            break;
+        case 2:
+            printf(GRN);
+            break;
+        }
+        cursorPos(columns/2-5,rows/2);
+        printf("Welcome");
+        cursorPos(columns/2+2+i,rows/2);
         printf(".");
+        sleep(1);
     }
-    sleep(1);
 }
 
 int startPage()
@@ -87,17 +109,17 @@ int startPage()
     system("cls");
     consoleSize();
     cursorPos(columns/2-6,rows/2-7);
-    printf("-: Welcome :-");
+    printf(MAG"-: Welcome :-"RST);
     cursorPos(columns/2-7,rows/2-5);
-    printf("|1|  | Start |");
+    printf("|1|  "GRN"| Start |"RST);
     cursorPos(columns/2-7,rows/2-3);
-    printf("|2|  | Player |");
+    printf("|2|  "YEL"| Player |"RST);
     cursorPos(columns/2-7,rows/2-1);
-    printf("|3|  | Help |");
+    printf("|3|  "BLU"| Help |"RST);
     cursorPos(columns/2-7,rows/2+1);
-    printf("|0|  | Exit |");
+    printf("|0|  "BLK"| Exit |"RST);
     cursorPos(columns/2-7,rows/2+3);
-    printf(">>>");
+    printf(CYN">>>"RST);
     cursorPos(columns/2-3,rows/2+3);
     scanf("%c",&option);
     while(1)
@@ -130,8 +152,9 @@ int gamePlay(char *playerIcon)
     {
         s1:
         cursorPos(2,rows-3);
+        playerIcon[0]=='X'?j?printf(RED):printf(GRN):j?printf(GRN):printf(RED);
         printf("Player - ");
-        j?printf("2"):printf("1");
+        j?printf("2"RST):printf("1"RST);
         cursorPos(6,rows-2);
         scanf("%c",&option);
         cursorPos(6,rows-2);
@@ -146,25 +169,25 @@ int gamePlay(char *playerIcon)
                     if(hide==0)
                     {
                         cursorPos(columns/2-11,rows/2-2);
-                        printf("1______|2______|3______");
+                        printf(BLK"1"WHT"______|"BLK"2"WHT"______|"BLK"3"WHT"______");
                         cursorPos(columns/2-11,rows/2+1);
-                        printf("4______|5______|6______");
+                        printf(BLK"4"WHT"______|"BLK"5"WHT"______|"BLK"6"WHT"______");
                         cursorPos(columns/2-11,rows/2+4);
-                        printf("7      |8      |9");
+                        printf(BLK"7      "WHT"|"BLK"8      "WHT"|"BLK"9"RST);
                         cursorPos(columns-33,rows-2);
-                        printf("|H|  | Hide Num |  |0|  | Back |");
+                        printf("|H|  "BLK"| Hide Num |  "RST"|0|  "BLU"| Back |"RST);
                         hide=1;
                     }
                     else
                     {
                         cursorPos(columns/2-11,rows/2-2);
-                        printf("_______|_______|_______");
+                        printf(WHT"_______|_______|_______");
                         cursorPos(columns/2-11,rows/2+1);
                         printf("_______|_______|_______");
                         cursorPos(columns/2-11,rows/2+4);
-                        printf("       |       | ");
+                        printf("       |       | "RST);
                         cursorPos(columns-33,rows-2);
-                        printf("|H|  | Show Num |  |0|  | Back |");
+                        printf("|H|  "WHT"| Show Num |  "RST"|0|  "BLU"| Back |"RST);
                         hide=0;
                     }
                     break;
@@ -182,16 +205,20 @@ int gamePlay(char *playerIcon)
                             case 0:
                                 break;
                             case 1:
-                                return result(1);
+                                return result(1,playerIcon);
                             case 2:
-                                return result(2);
+                                return result(2,playerIcon);
                         }
-                    j?j=0:j=1;
+                    if(j==0)
+                        j=1;
+                    else
+                        j=0;
+                        
                     i++;
                     break;
             }
     }
-    return result(3);
+    return result(3,playerIcon);
 }
 
 void gamePageUI()
@@ -199,16 +226,16 @@ void gamePageUI()
     // Game Page UI
 
     cursorPos(0,0);
-    printf("-: Tic Tac Toe :-");
+    printf(MAG"-: Tic Tac Toe :-"RST);
     cursorPos(2,rows-2);
-    printf(">>>");
+    printf(CYN">>>"RST);
     cursorPos(columns-33,rows-2);
-    printf("|H|  | Show Num |  |0|  | Back |");
+    printf("|H|  "WHT"| Show Num |"RST"  |0|  "BLK"| Back |"RST);
 
     // Game Fild
 
     cursorPos(columns/2-4,rows/2-4); //line 1
-    printf("|       |");
+    printf(WHT"|       |");
     cursorPos(columns/2-4,rows/2-3);
     printf("|       |");
     cursorPos(columns/2-11,rows/2-2);
@@ -224,11 +251,12 @@ void gamePageUI()
     cursorPos(columns/2-4,rows/2+3);
     printf("|       |");
     cursorPos(columns/2-4,rows/2+4);
-    printf("|       |");
+    printf("|       |"RST);
 }
 
 void updateUI(char option,char *playerIcon,int j)
 {
+    playerIcon[j]=='X'?printf(GRN):printf(RED);
     switch (option)
     {
     case '1':
@@ -268,6 +296,7 @@ void updateUI(char option,char *playerIcon,int j)
         printf("%c",playerIcon[j]);
         break;
     }
+    printf(RST);
 }
 
 int gameLogic(int *move)
@@ -301,14 +330,14 @@ int gameLogic(int *move)
     return 0;
 }
 
-int result(int i)
+int result(int i,char * playerIcon)
 {
     char option;
     consoleSize();
     cursorPos(0,0);
     printf("                 ");
     cursorPos(columns/2-8,0);
-    printf("-: Tic Tac Toe :- ");
+    printf("-: Tic Tac Toe :- "RST);
     cursorPos(2,rows-2);
     printf("     ");
     cursorPos(columns-33,rows-2);
@@ -316,26 +345,17 @@ int result(int i)
     cursorPos(2,rows-3);
     printf("           ");
     cursorPos(columns/6-6,rows/2-6);
-    printf("-: Result :-");
+    printf(MAG"-: Result :-"RST);
     cursorPos(columns/6-6,rows/2-4);
-    if(i==1)
-        printf("Player 1 Win");
-    else
-        if(i==2)
-            printf("Player 2 Win");
-        else
-        {
-            cursorPos(columns/6-2,rows/2-4);
-            printf("Draw");
-        }
+    playerIcon[0]=='X'?i==1?printf(GRN"Player 1 Win"RST):i==2?printf(RED"Player 2 Win"RST):(cursorPos(columns/6-2,rows/2-4),printf("Draw")):i==1?printf(RED"Player 1 Win"RST):i==2?printf(GRN"Player 2 Win"RST):(cursorPos(columns/6-2,rows/2-4),printf("Draw"));
     cursorPos(columns/6-10,rows/2-2);
-    printf("|1|  | Play Again |");
+    printf("|1|  "YEL"| Play Again |"RST);
     cursorPos(columns/6-10,rows/2);
-    printf("|2|  | Start Page |");
+    printf("|2|  "BLU"| Start Page |"RST);
     cursorPos(columns/6-10,rows/2+2);
-    printf("|0|  | Exit |");
+    printf("|0|  "BLK"| Exit |"RST);
     cursorPos(columns/6-10,rows/2+4);
-    printf(">>>");
+    printf(CYN">>>"RST);
     while (1)
     {
         cursorPos(columns/6-6,rows/2+4);
@@ -361,17 +381,19 @@ int player(char *playerIcon)
     system("cls");
     consoleSize();
     cursorPos(columns/2-6,rows/2-6);
-    printf("-: Player :-");
+    printf(MAG"-: Player :-"RST);
     cursorPos(columns/2-7,rows/2-4);
+    playerIcon[0]=='X'?printf(GRN):printf(RED);
     printf("# Player 1 --> %c",playerIcon[0]);
     cursorPos(columns/2-7,rows/2-2);
+    playerIcon[1]=='O'?printf(RED):printf(GRN);
     printf("# Player 2 --> %c",playerIcon[1]);
     cursorPos(columns/2-7,rows/2);
-    printf("|1|  | Change |");
+    printf(RST"|1|  "YEL"| Change |"RST);
     cursorPos(columns/2-7,rows/2+2);
-    printf("|0|  | Back |");
+    printf("|0|  "BLK"| Back |"RST);
     cursorPos(columns/2-7,rows/2+4);
-    printf(">>>");
+    printf(CYN">>>"RST);
     while(1)
     {
         cursorPos(columns/2-2,rows/2+4);
@@ -386,9 +408,11 @@ int player(char *playerIcon)
                 playerIcon[0]=playerIcon[1];
                 playerIcon[1]=a;
                 cursorPos(columns/2-7,rows/2-4);
+                playerIcon[0]=='X'?printf(GRN):printf(RED);
                 printf("# Player 1 --> %c",playerIcon[0]);
                 cursorPos(columns/2-7,rows/2-2);
-                printf("# Player 2 --> %c",playerIcon[1]);
+                playerIcon[1]=='O'?printf(RED):printf(GRN);
+                printf("# Player 2 --> %c"RST,playerIcon[1]);
             default:
                 cursorPos(columns/2-2,rows/2+4);
                 printf("     ");    
@@ -398,7 +422,7 @@ int player(char *playerIcon)
 
 int help()
 {
-    printf("NOT AVAILABLE !!\n");
+    printf(RED"NOT AVAILABLE !!\n"RST);
     getch();
     return 0;
 }
@@ -407,12 +431,25 @@ void goodByePage()
 {
     system("cls");
     consoleSize();
-    cursorPos(columns/2-5,rows/2);
-    printf("Good Bye");
     for(int i=0;i<3;i++)
     {
-        sleep(1);
+        switch (i)
+        {
+        case 0:
+            printf(GRN);
+            break;
+        case 1:
+            printf(YEL);
+            break;
+        case 2:
+            printf(RED);
+            break;
+        }
+        cursorPos(columns/2-5,rows/2);
+        printf("Good Bye");
+        cursorPos(columns/2+3+i,rows/2);
         printf(".");
+        sleep(1);
     }
-    sleep(1);
+    printf(RST);
 }
