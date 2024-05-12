@@ -2,6 +2,7 @@
 #include<windows.h>
 #include<unistd.h>
 #include<stdio.h>
+#include<string.h>
 
 #define BLK "\e[0;30m"
 #define RED "\e[0;31m"
@@ -17,12 +18,12 @@ void consoleSize();
 void welcomePage();
 void cursorPos(int,int);
 int startPage();
-int gamePlay(char *);
+int gamePlay(char *,char *,char *);
 void gamePageUI();
 void updateUI(char,char *,int);
 int gameLogic(int *);
-int result(int,char *);
-int player(char *);
+int result(int,char *,char *);
+int player(char *,char *,char *);
 int help();
 void goodByePage();
 
@@ -32,6 +33,9 @@ int main()
 { 
     int i=0;
     char playerIcon[]={'X','O'};
+    char p1[11],p2[11];
+    strcpy(p1,"Player 1");
+    strcpy(p2,"Player 2");
     welcomePage();
     while(1)
     {
@@ -41,10 +45,10 @@ int main()
                 i=startPage();
                 break;
             case 1:
-                i=gamePlay(playerIcon);
+                i=gamePlay(playerIcon,p1,p2);
                 break;
             case 2:
-                i=player(playerIcon);
+                i=player(playerIcon,p1,p2);
                 break;
             case 3:
                 i=help();
@@ -141,7 +145,7 @@ int startPage()
         }
 }
 
-int gamePlay(char *playerIcon)
+int gamePlay(char *playerIcon,char *p1,char *p2)
 {
     int i=0,j=0,move[]={0,0,0,0,0,0,0,0,0},hide=0;
     char option;
@@ -152,9 +156,10 @@ int gamePlay(char *playerIcon)
     {
         s1:
         cursorPos(2,rows-3);
+        printf("             ");
+        cursorPos(2,rows-3);
         playerIcon[0]=='X'?j?printf(RED):printf(GRN):j?printf(GRN):printf(RED);
-        printf("Player - ");
-        j?printf("2"RST):printf("1"RST);
+        j?printf("%s"RST,p2):printf("%s"RST,p1);
         cursorPos(6,rows-2);
         scanf("%c",&option);
         cursorPos(6,rows-2);
@@ -205,9 +210,9 @@ int gamePlay(char *playerIcon)
                             case 0:
                                 break;
                             case 1:
-                                return result(1,playerIcon);
+                                return result(1,playerIcon,p1);
                             case 2:
-                                return result(2,playerIcon);
+                                return result(2,playerIcon,p2);
                         }
                     if(j==0)
                         j=1;
@@ -218,7 +223,7 @@ int gamePlay(char *playerIcon)
                     break;
             }
     }
-    return result(3,playerIcon);
+    return result(3,playerIcon,p1);
 }
 
 void gamePageUI()
@@ -330,7 +335,7 @@ int gameLogic(int *move)
     return 0;
 }
 
-int result(int i,char * playerIcon)
+int result(int i,char * playerIcon,char *p)
 {
     char option;
     consoleSize();
@@ -347,7 +352,7 @@ int result(int i,char * playerIcon)
     cursorPos(columns/6-6,rows/2-6);
     printf(MAG"-: Result :-"RST);
     cursorPos(columns/6-6,rows/2-4);
-    playerIcon[0]=='X'?i==1?printf(GRN"Player 1 Win"RST):i==2?printf(RED"Player 2 Win"RST):(cursorPos(columns/6-2,rows/2-4),printf("Draw")):i==1?printf(RED"Player 1 Win"RST):i==2?printf(GRN"Player 2 Win"RST):(cursorPos(columns/6-2,rows/2-4),printf("Draw"));
+    playerIcon[0]=='X'?i==1?printf(GRN"%s Win"RST,p):i==2?printf(RED"%s Win"RST,p):(cursorPos(columns/6-2,rows/2-4),printf("Draw")):i==1?printf(RED"%s Win"RST,p):i==2?printf(GRN"%s Win"RST,p):(cursorPos(columns/6-2,rows/2-4),printf("Draw"));
     cursorPos(columns/6-10,rows/2-2);
     printf("|1|  "YEL"| Play Again |"RST);
     cursorPos(columns/6-10,rows/2);
@@ -375,21 +380,24 @@ int result(int i,char * playerIcon)
     }
 }
 
-int player(char *playerIcon)
+int player(char *playerIcon,char *p1,char *p2)
 {
     char option;
+    s3:
     system("cls");
     consoleSize();
-    cursorPos(columns/2-6,rows/2-6);
+    cursorPos(columns/2-6,rows/2-8);
     printf(MAG"-: Player :-"RST);
-    cursorPos(columns/2-7,rows/2-4);
+    cursorPos(columns/2-7,rows/2-6);
     playerIcon[0]=='X'?printf(GRN):printf(RED);
-    printf("# Player 1 --> %c",playerIcon[0]);
-    cursorPos(columns/2-7,rows/2-2);
+    printf("# %s --> %c"RST"   (A) Edit",p1,playerIcon[0]);
+    cursorPos(columns/2-7,rows/2-4);
     playerIcon[1]=='O'?printf(RED):printf(GRN);
-    printf("# Player 2 --> %c",playerIcon[1]);
-    cursorPos(columns/2-7,rows/2);
+    printf("# %s --> %c"RST"   (B) Edit",p2,playerIcon[1]);
+    cursorPos(columns/2-7,rows/2-2);
     printf(RST"|1|  "YEL"| Change |"RST);
+    cursorPos(columns/2-7,rows/2);
+    printf("|2|  | Play |");
     cursorPos(columns/2-7,rows/2+2);
     printf("|0|  "BLU"| Back |"RST);
     cursorPos(columns/2-7,rows/2+4);
@@ -407,15 +415,66 @@ int player(char *playerIcon)
                 a=playerIcon[0];
                 playerIcon[0]=playerIcon[1];
                 playerIcon[1]=a;
-                cursorPos(columns/2-7,rows/2-4);
+                cursorPos(columns/2-7,rows/2-6);
                 playerIcon[0]=='X'?printf(GRN):printf(RED);
-                printf("# Player 1 --> %c",playerIcon[0]);
-                cursorPos(columns/2-7,rows/2-2);
+                printf("# %s --> %c",p1,playerIcon[0]);
+                cursorPos(columns/2-7,rows/2-4);
                 playerIcon[1]=='O'?printf(RED):printf(GRN);
-                printf("# Player 2 --> %c"RST,playerIcon[1]);
+                printf("# %s --> %c"RST,p2,playerIcon[1]);
+                break;
+            case '2':
+                return 1;
+            case 'A':
+            {
+                s1:
+                char p[11];
+                cursorPos(columns/2-18,rows/2+4);
+                printf("%s",p1);
+                cursorPos(columns/2-2,rows/2+4);
+                printf("            ");  
+                cursorPos(columns/2-2,rows/2+4);
+                scanf("%s",p);
+                if(strlen(p)>10)
+                {
+                    cursorPos(columns/2-3,rows/2+5);
+                    printf(RED"Too Long !!"RST);
+                    goto s1;
+                }
+                else
+                {
+                    strcpy(p1,p);
+                    goto s3;
+                }
+            }
+            case 'a':
+                goto s1;
+            case 'B':
+            {
+                s2:
+                char p[11];
+                cursorPos(columns/2-18,rows/2+4);
+                printf("%s",p2);
+                cursorPos(columns/2-2,rows/2+4);
+                printf("            ");  
+                cursorPos(columns/2-2,rows/2+4);
+                scanf("%s",p);
+                if(strlen(p)>10)
+                {
+                    cursorPos(columns/2-3,rows/2+5);
+                    printf(RED"Too Long !!"RST);
+                    goto s2;
+                }
+                else
+                {
+                    strcpy(p2,p);
+                    goto s3;
+                }
+            }
+            case 'b':
+                goto s2;
             default:
                 cursorPos(columns/2-2,rows/2+4);
-                printf("     ");    
+                printf("            ");    
         }
     }
 }
