@@ -113,17 +113,17 @@ int startPage()
     system("cls");
     consoleSize();
     cursorPos(columns/2-6,rows/2-7);
-    printf(MAG"-: Welcome :-"RST);
+    printf(MAG"-: Welcome :-"WHT);
     cursorPos(columns/2-7,rows/2-5);
-    printf("|1|  "GRN"| Start |"RST);
+    printf("|1|  "GRN"| Start |"WHT);
     cursorPos(columns/2-7,rows/2-3);
-    printf("|2|  "YEL"| Player |"RST);
+    printf("|2|  "YEL"| Player |"WHT);
     cursorPos(columns/2-7,rows/2-1);
-    printf("|3|  "BLU"| Help |"RST);
+    printf("|3|  "BLU"| Help |"WHT);
     cursorPos(columns/2-7,rows/2+1);
-    printf("|0|  "RED"| Exit |"RST);
+    printf("|0|  "RED"| Exit |"WHT);
     cursorPos(columns/2-7,rows/2+3);
-    printf(CYN">>>"RST);
+    printf(CYN">>>"WHT);
     cursorPos(columns/2-3,rows/2+3);
     scanf("%c",&option);
     while(1)
@@ -159,7 +159,7 @@ int gamePlay(char *playerIcon,char *p1,char *p2)
         printf("             ");
         cursorPos(2,rows-3);
         playerIcon[0]=='X'?j?printf(RED):printf(GRN):j?printf(GRN):printf(RED);
-        j?printf("%s"RST,p2):printf("%s"RST,p1);
+        j?printf("%s"WHT,p2):printf("%s"WHT,p1);
         cursorPos(6,rows-2);
         scanf("%c",&option);
         cursorPos(6,rows-2);
@@ -178,9 +178,9 @@ int gamePlay(char *playerIcon,char *p1,char *p2)
                         cursorPos(columns/2-11,rows/2+1);
                         printf(CYN"4"WHT"______|"CYN"5"WHT"______|"CYN"6"WHT"______");
                         cursorPos(columns/2-11,rows/2+4);
-                        printf(CYN"7      "WHT"|"CYN"8      "WHT"|"CYN"9"RST);
+                        printf(CYN"7      "WHT"|"CYN"8      "WHT"|"CYN"9"WHT);
                         cursorPos(columns-33,rows-2);
-                        printf("|H|  "WHT"| Hide Num |  "RST"|0|  "BLU"| Back |"RST);
+                        printf("|H|  "WHT"| Hide Num |  "WHT"|0|  "BLU"| Back |"WHT);
                         hide=1;
                     }
                     else
@@ -190,9 +190,9 @@ int gamePlay(char *playerIcon,char *p1,char *p2)
                         cursorPos(columns/2-11,rows/2+1);
                         printf("_______|_______|_______");
                         cursorPos(columns/2-11,rows/2+4);
-                        printf("       |       | "RST);
+                        printf("       |       | "WHT);
                         cursorPos(columns-33,rows-2);
-                        printf("|H|  "WHT"| Show Num |  "RST"|0|  "BLU"| Back |"RST);
+                        printf("|H|  "WHT"| Show Num |  "WHT"|0|  "BLU"| Back |"WHT);
                         hide=0;
                     }
                     break;
@@ -231,11 +231,11 @@ void gamePageUI()
     // Game Page UI
 
     cursorPos(0,0);
-    printf(MAG"-: Tic Tac Toe :-"RST);
+    printf(MAG"-: Tic Tac Toe :-"WHT);
     cursorPos(2,rows-2);
-    printf(CYN">>>"RST);
+    printf(CYN">>>"WHT);
     cursorPos(columns-33,rows-2);
-    printf("|H|  "WHT"| Show Num |"RST"  |0|  "BLU"| Back |"RST);
+    printf("|H|  "WHT"| Show Num |"WHT"  |0|  "BLU"| Back |"WHT);
 
     // Game Fild
 
@@ -256,7 +256,7 @@ void gamePageUI()
     cursorPos(columns/2-4,rows/2+3);
     printf("|       |");
     cursorPos(columns/2-4,rows/2+4);
-    printf("|       |"RST);
+    printf("|       |"WHT);
 }
 
 void updateUI(char option,char *playerIcon,int j)
@@ -301,7 +301,7 @@ void updateUI(char option,char *playerIcon,int j)
         printf("%c",playerIcon[j]);
         break;
     }
-    printf(RST);
+    printf(WHT);
 }
 
 int gameLogic(int *move)
@@ -342,7 +342,7 @@ int result(int i,char * playerIcon,char *p)
     cursorPos(0,0);
     printf("                 ");
     cursorPos(columns/2-8,0);
-    printf("-: Tic Tac Toe :- "RST);
+    printf("-: Tic Tac Toe :- "WHT);
     cursorPos(2,rows-2);
     printf("     ");
     cursorPos(columns-33,rows-2);
@@ -350,17 +350,17 @@ int result(int i,char * playerIcon,char *p)
     cursorPos(2,rows-3);
     printf("           ");
     cursorPos(columns/6-6,rows/2-6);
-    printf(MAG"-: Result :-"RST);
+    printf(MAG"-: Result :-"WHT);
     cursorPos(columns/6-6,rows/2-4);
-    playerIcon[0]=='X'?i==1?printf(GRN"%s Win"RST,p):i==2?printf(RED"%s Win"RST,p):(cursorPos(columns/6-2,rows/2-4),printf("Draw")):i==1?printf(RED"%s Win"RST,p):i==2?printf(GRN"%s Win"RST,p):(cursorPos(columns/6-2,rows/2-4),printf("Draw"));
+    playerIcon[0]=='X'?i==1?printf(GRN"%s Win"WHT,p):i==2?printf(RED"%s Win"WHT,p):(cursorPos(columns/6-2,rows/2-4),printf("Draw")):i==1?printf(RED"%s Win"WHT,p):i==2?printf(GRN"%s Win"WHT,p):(cursorPos(columns/6-2,rows/2-4),printf("Draw"));
     cursorPos(columns/6-10,rows/2-2);
-    printf("|1|  "YEL"| Play Again |"RST);
+    printf("|1|  "YEL"| Play Again |"WHT);
     cursorPos(columns/6-10,rows/2);
-    printf("|2|  "BLU"| Start Page |"RST);
+    printf("|2|  "BLU"| Start Page |"WHT);
     cursorPos(columns/6-10,rows/2+2);
-    printf("|0|  "RED"| Exit |"RST);
+    printf("|0|  "RED"| Exit |"WHT);
     cursorPos(columns/6-10,rows/2+4);
-    printf(CYN">>>"RST);
+    printf(CYN">>>"WHT);
     while (1)
     {
         cursorPos(columns/6-6,rows/2+4);
@@ -387,21 +387,21 @@ int player(char *playerIcon,char *p1,char *p2)
     system("cls");
     consoleSize();
     cursorPos(columns/2-6,rows/2-8);
-    printf(MAG"-: Player :-"RST);
+    printf(MAG"-: Player :-"WHT);
     cursorPos(columns/2-7,rows/2-6);
     playerIcon[0]=='X'?printf(GRN):printf(RED);
-    printf("# %s --> %c"RST"   (A) Edit",p1,playerIcon[0]);
+    printf("# %s --> %c"WHT"   (A) Edit",p1,playerIcon[0]);
     cursorPos(columns/2-7,rows/2-4);
     playerIcon[1]=='O'?printf(RED):printf(GRN);
-    printf("# %s --> %c"RST"   (B) Edit",p2,playerIcon[1]);
+    printf("# %s --> %c"WHT"   (B) Edit",p2,playerIcon[1]);
     cursorPos(columns/2-7,rows/2-2);
-    printf(RST"|1|  "YEL"| Change |"RST);
+    printf(WHT"|1|  "YEL"| Change |"WHT);
     cursorPos(columns/2-7,rows/2);
     printf("|2|  | Play |");
     cursorPos(columns/2-7,rows/2+2);
-    printf("|0|  "BLU"| Back |"RST);
+    printf("|0|  "BLU"| Back |"WHT);
     cursorPos(columns/2-7,rows/2+4);
-    printf(CYN">>>"RST);
+    printf(CYN">>>"WHT);
     while(1)
     {
         cursorPos(columns/2-2,rows/2+4);
@@ -420,7 +420,7 @@ int player(char *playerIcon,char *p1,char *p2)
                 printf("# %s --> %c",p1,playerIcon[0]);
                 cursorPos(columns/2-7,rows/2-4);
                 playerIcon[1]=='O'?printf(RED):printf(GRN);
-                printf("# %s --> %c"RST,p2,playerIcon[1]);
+                printf("# %s --> %c"WHT,p2,playerIcon[1]);
                 break;
             case '2':
                 return 1;
@@ -437,7 +437,7 @@ int player(char *playerIcon,char *p1,char *p2)
                 if(strlen(p)>10)
                 {
                     cursorPos(columns/2-3,rows/2+5);
-                    printf(RED"Too Long !!"RST);
+                    printf(RED"Too Long !!"WHT);
                     goto s1;
                 }
                 else
@@ -461,7 +461,7 @@ int player(char *playerIcon,char *p1,char *p2)
                 if(strlen(p)>10)
                 {
                     cursorPos(columns/2-3,rows/2+5);
-                    printf(RED"Too Long !!"RST);
+                    printf(RED"Too Long !!"WHT);
                     goto s2;
                 }
                 else
@@ -481,7 +481,7 @@ int player(char *playerIcon,char *p1,char *p2)
 
 int help()
 {
-    printf(RED"NOT AVAILABLE !!\n"RST);
+    printf(RED"NOT AVAILABLE !!\n"WHT);
     getch();
     return 0;
 }
